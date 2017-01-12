@@ -19,25 +19,16 @@ public class ChooseStreamForm extends javax.swing.JFrame {
     /**
      * Creates new form ChooseStreamForm
      */
-    private String token;
-    private String id;
-    public ChooseStreamForm(String token, String id) {
-        this.token = token;
-        this.id = id;
+    Global global;
+    public ChooseStreamForm(Global global) {
+        this.global = global;
         this.setTitle("VerQ Admin");
-        initComponents();
-         CheckBoxList cbList = new CheckBoxList();
-        JCheckBox check1 = new JCheckBox("One");
-        JCheckBox check2 = new JCheckBox("two");
-        JCheckBox[] myList = { check1, check2};
-        cbList.setListData(myList);
-    
-        jPanel1.add(check1);
-        this.getContentPane().add(check1);
-        this.repaint();
-        jPanel1.repaint();
+        initComponents();   
         
         
+        /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        http://stackoverflow.com/questions/21358240/how-to-implement-checkbox-list-java
+        !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 
     }
 

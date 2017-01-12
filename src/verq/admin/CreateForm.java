@@ -27,10 +27,10 @@ public class CreateForm extends javax.swing.JFrame {
     /**
      * Creates new form CreateForm
      */
-    private String token;
-    public CreateForm(String token) {
+    private Global global;
+    public CreateForm(Global global) {
         initComponents();
-        this.token = token;
+        this.global = global;
         this.setTitle("VerQ Admin");
     }
 
@@ -139,7 +139,7 @@ public class CreateForm extends javax.swing.JFrame {
                     //add reuqest header
                     con.setRequestMethod("POST");
 
-                    String urlParameters = "name=" + name +"&children="+children + "&token=" + token;
+                    String urlParameters = "name=" + name +"&children="+children + "&token=" + global.getToken();
 
                     // Send post request
                     con.setDoOutput(true);
@@ -170,28 +170,19 @@ public class CreateForm extends javax.swing.JFrame {
                 JOptionPane.showConfirmDialog(null, "Проверьте подключение к сети", "Ошибка", JOptionPane.YES_NO_OPTION);
             }
             
-            /************************************/
-            
-            String id = "   ";
-            this.setVisible(false);
-            new ChooseStreamForm(token, id).setVisible(true);
-            
-            /***********************************/
-            
-            responseCode =200;
-            String json1 = "{\"name\" :\"name\", \"id\": 123, \"mail\": \"mail@mail.ru\", \"status\": \"status\", \"type\": 1, \"children\": \"children\"}";
             if(responseCode == 200){           
                 try {
                     JSONParser parser = new JSONParser();
                     JSONObject jsonObject;
                     //jsonObject = (JSONObject) parser.parse(response.toString());
-                    jsonObject = (JSONObject) parser.parse(json1);
+                    jsonObject = (JSONObject) parser.parse(response.toString());
                     String id = (String) jsonObject.get("id");
                     System.out.print(id);
                     this.setVisible(false);
-                    new ChooseStreamForm(token, id).setVisible(true);
+                    global.setId(id);
+                    new ChooseStreamForm(global).setVisible(true);
                 } catch (ParseException ex) {
-                    //Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 
             } else {

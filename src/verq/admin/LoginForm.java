@@ -114,7 +114,8 @@ public class LoginForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String url = "http://lohness.com/verq/login/?";
+        Global global = new Global();
+        String url = "http://192.168.20.172/api/login/";
         String mail = jTextField1.getText();
         String pass = jPasswordField1.getText();
         int responseCode = 0;
@@ -166,9 +167,10 @@ public class LoginForm extends javax.swing.JFrame {
                     JSONObject jsonObject;
                     jsonObject = (JSONObject) parser.parse(response.toString());
                     String token = (String) jsonObject.get("token");
-                    System.out.print(token);
+                    
+                    global.setToken(token);
                     this.setVisible(false);
-                    new CreateForm(token).setVisible(true);
+                    new CreateForm(global).setVisible(true);
                 } catch (ParseException ex) {
                     Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
                 }
